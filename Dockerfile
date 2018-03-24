@@ -1,4 +1,4 @@
-FROM alpine:3.7 as builder
+FROM alpine:3.7
 ARG K8S_VERSION=v1.9.6
 RUN set -x                  && \
     apk --update upgrade    && \
@@ -8,5 +8,5 @@ RUN set -x                  && \
     chmod +x /kubectl
 
 FROM scratch
-COPY --from=builder /kubectl /kubectl
+COPY --from=0 /kubectl /kubectl
 ENTRYPOINT ["/kubectl"]
